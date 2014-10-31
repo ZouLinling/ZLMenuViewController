@@ -105,7 +105,7 @@
     if (_menus.count < aIndex) {
         return;
     }
-    //宽度小于320肯定不需要移动
+    //no need to scroll when the width is smaller than SCREEN_WIDTH
     if (_totalWidth <= SCREEN_WIDTH) {
         return;
     }
