@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ZLHorizontalMenuView.h"
+#import "DraggableView.h"
 
 @class ZLMenuViewController;
 

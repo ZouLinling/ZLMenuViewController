@@ -69,11 +69,11 @@
         menuWidth += buttonWidth;
         i++;
         
-        //保存button资源信息，同时增加button.oringin.x的位置，方便点击button时，移动位置。
+        //used to scroll the button to visible rect when buttons' total width is wider than SCREEN_WIDTH
         menu.totalWidth = menuWidth;
     }
     
-    //选中由ZLMenuViewController中决定的页面的menu
+    //it decided by who(ZLMenuViewController here) implement the delegate
     int selectedIndex = [_delegate selectedIndexForMenuView:self];
     [_menuButtons enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL *stop) {
         [obj setSelected:(selectedIndex == idx)];
@@ -81,7 +81,7 @@
     
     [_horizontalScrollView setContentSize:CGSizeMake(menuWidth, self.frame.size.height)];
     [self addSubview:_horizontalScrollView];
-    // 保存menu总长度，如果小于320则不需要移动，方便点击button时移动位置的判断
+    // save the total width of the buttons, used to scroll the button to visibile rect when total is wider than SCREEN_WIDTH
     _totalWidth = menuWidth;
 }
 
@@ -92,7 +92,6 @@
     [_delegate menuView:self didSelectItemAtIndex:index];
 }
 
-#pragma mark 改变第几个button为选中状态
 -(void)changeButtonStateAtIndex:(NSInteger)aIndex{
     UIButton *vButton = [_menuButtons objectAtIndex:aIndex];
     [self changeButtonsToNormalState];
@@ -100,7 +99,6 @@
     [self moveScrolViewWithIndex:aIndex];
 }
 
-#pragma mark 移动button到可视的区域
 -(void)moveScrolViewWithIndex:(NSInteger)aIndex{
     if (_menus.count < aIndex) {
         return;

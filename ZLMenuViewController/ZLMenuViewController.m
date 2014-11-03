@@ -9,10 +9,13 @@
 #import "ZLMenuViewController.h"
 #import <objc/runtime.h>
 
-@interface ZLMenuViewController ()<ZLHorizontalMenuViewDelegate, UIGestureRecognizerDelegate>
+#define  USE_SWIPE_ANIMATION NO //two types animation when change vc use gesture
+
+@interface ZLMenuViewController ()<ZLHorizontalMenuViewDelegate, UIGestureRecognizerDelegate,DraggableViewDelegate>
 
 @property (nonatomic, weak) UIView *transitionView;
 @property (nonatomic, weak) UIViewController *selectedViewController;
+@property ZLPanGestureSwipeDirection direction;
 
 @end
 
@@ -50,13 +53,13 @@
 - (NSArray *)itemsForMenuView:(ZLHorizontalMenuView *)menuView
 {
     NSMutableArray *itemsArray = [[NSMutableArray alloc] initWithCapacity:[_viewControllers count]];
-    //给没有设置菜单的VC添上菜单
+    //add the default menu for the ViewController not set menuItem
     for (UIViewController *vc in _viewControllers) {
         ZLMenu *menu = vc.menuItem;
         if (menu) {
             [itemsArray addObject:menu];
         } else {
-            [itemsArray addObject:[[ZLMenu alloc] initWithTitle:@"标题" background:nil selected:nil desiredWidth:DEFAULT_MENU_WIDTH]];
+            [itemsArray addObject:[[ZLMenu alloc] initWithTitle:@"Menu" background:nil selected:nil desiredWidth:DEFAULT_MENU_WIDTH]];
         }
     }
     return itemsArray;
@@ -118,15 +121,17 @@
         UIView *newView = [[self selectedViewController] view];
         [newView setFrame:[[self transitionView] bounds]];
         [newView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+        
         [[self transitionView] addSubview:newView];
     }
 }
 
 /**
- *  根据手势滑动的方向添加不同的动画并显示新的VC
+ *  add animation when swipe to change VC. The code here is similar with above
+ *  -(void)setSelectedViewController:(UIViewController *)selectedViewController
  *
- *  @param selectedViewController 需要显示的VC
- *  @param direction              滑动的方向
+ *  @param selectedViewController
+ *  @param direction              swipe direction
  */
 - (void)swipeViewController:(UIViewController *)selectedViewController direction:(UISwipeGestureRecognizerDirection)direction
 {
@@ -194,29 +199,34 @@
     [menuView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [menuView setDelegate:self];
     [layoutView addSubview:menuView];
-    
-    UIView *transitionView = [[UIView alloc] initWithFrame:CGRectMake(layoutView.frame.origin.x, menuView.frame.origin.y + menuView.frame.size.height, layoutView.frame.size.width, layoutView.frame.size.height)];
-    [transitionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth| UIViewAutoresizingFlexibleBottomMargin];
-    
-    //add left and right swipe gesture recognizer
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeVC:)];
-    swipeRecognizer.delegate = self;
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [transitionView addGestureRecognizer:swipeRecognizer];
-
-    swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeVC:)];
-    swipeRecognizer.delegate = self;
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    [transitionView addGestureRecognizer:swipeRecognizer];
-    
-    [layoutView addSubview:transitionView];
-    
+    if (USE_SWIPE_ANIMATION) {
+         UIView *transitionView = [[UIView alloc] initWithFrame:CGRectMake(layoutView.frame.origin.x, menuView.frame.origin.y + menuView.frame.size.height, layoutView.frame.size.width, layoutView.frame.size.height)];
+        [transitionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth| UIViewAutoresizingFlexibleBottomMargin];
+        //add left and right swipe gesture recognizer
+        UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        swipeRecognizer.delegate = self;
+        swipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [transitionView addGestureRecognizer:swipeRecognizer];
+        
+        swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
+        swipeRecognizer.delegate = self;
+        swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        [transitionView addGestureRecognizer:swipeRecognizer];
+        [layoutView addSubview:transitionView];
+        [self setTransitionView:transitionView];
+    } else {
+        DraggableView *transitionView = [[DraggableView alloc] initWithFrame:CGRectMake(layoutView.frame.origin.x, menuView.frame.origin.y + menuView.frame.size.height, layoutView.frame.size.width, layoutView.frame.size.height)];
+        [transitionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth| UIViewAutoresizingFlexibleBottomMargin];
+        transitionView.delegate = self;
+        [layoutView addSubview:transitionView];
+        [self setTransitionView:transitionView];
+    }
     [layoutView bringSubviewToFront:menuView];
     
     layoutView.userInteractionEnabled = YES;
     
     [self setView:layoutView];
-    [self setTransitionView:transitionView];
+    
     _menuView = menuView;
 }
 
@@ -226,25 +236,13 @@
     [_menuView createMenuViews];
 }
 
-/**
- *  useless
- *
- *  @param panGesture
- */
--(void)handlePan:(UIPanGestureRecognizer*)panGesture
-{
-    CGPoint point = [panGesture translationInView:_transitionView];
-    NSLog(@"%f,%f",point.x,point.y);
-    panGesture.view.center = CGPointMake(panGesture.view.center.x + point.x, panGesture.view.center.y);
-    [panGesture setTranslation:CGPointMake(0, 0) inView:_transitionView];
-}
-
-- (void)swipeVC:(UISwipeGestureRecognizer *)gestureRecognizer
+- (void)handleSwipe:(UISwipeGestureRecognizer *)gestureRecognizer
 {
     int index = [self selectedViewControllerIndex];
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         if (index == [_viewControllers count] -1 ) {
-            //the right one， do nothing
+            //the right most one， do nothing here
+            // you can add animation or toast to remind the user that there is no more vc on the right
         } else {
             [self swipeViewController:[_viewControllers objectAtIndex:index+1] direction:UISwipeGestureRecognizerDirectionLeft];
         }
@@ -263,6 +261,135 @@
     [_menuView changeButtonStateAtIndex:[self selectedViewControllerIndex]];
 }
 
+#pragma mark DraggableViewDelegate
+
+- (void)draggableView:(DraggableView *)view draggingEndedWithVelocity:(CGPoint)velocity
+{
+    /**************注意，左滑和右滑分别使用了两种方法来控制frame的变化
+    左滑是在屏幕的左侧添加了一个view，同时_transitionView的宽度从SCREEN_WIDTH扩大了一倍到2*SCREEN_WIDTH，然后依次往左滑动，最后中心点落在y轴上（x＝0），动画结束后把frame变回原样，同时删除了旧的view，新的view也设置到和_transitionView的frame一致
+    右滑是在屏幕的左侧添加了一个view，但是这里并没有扩大_transitionView的frame来显示，而是利用了_transitionView.clipsToBounds = NO; 来显示超出_transitionView边界的view，最后_transitionView到了屏幕的右侧。动画结束后，调整_transitionView的frame为当前显示区域，同时删除了旧的view，这里可以不用重新设置新view的frame，因为动画结束后它的frame就已经是我们期望的。**************/
+    
+    
+        //如果往右滑动时_transitionView已经超过了屏幕的三分之一，则当作用户想往右滑动，自动完成
+    if (_direction == ZLPanGestureSwipeDirectionNoneRight) {
+        if (((CGFloat)_transitionView.frame.origin.x/SCREEN_WIDTH - 1.0/3.0) >= 0.0) {
+            [UIView animateWithDuration:0.5 animations:^{
+                //view's X dragged from ZERO to SCREEN_WIDTH,the view's center finally to SCREEN_WIDTH*1.5
+                _transitionView.center = CGPointMake(SCREEN_WIDTH + SCREEN_WIDTH/2, _transitionView.center.y);
+            } completion:^(BOOL finished) {
+                //change the frame to one screen
+                _transitionView.frame = CGRectMake(0, _transitionView.frame.origin.y, SCREEN_WIDTH, _transitionView.frame.size.height);
+                // remove the older vc's view
+                [[[_transitionView subviews] objectAtIndex:0] removeFromSuperview];
+                // change the new vc's view's frame and show
+                [[[_transitionView subviews] objectAtIndex:0] setFrame:CGRectMake(0, 0, _transitionView.frame.size.width, _transitionView.frame.size.height)];
+                // set selected vc
+                [self setSelectedViewController:[_viewControllers objectAtIndex:[self selectedViewControllerIndex]-1]];
+                //change the menu
+                [_menuView changeButtonStateAtIndex:[self selectedViewControllerIndex]];
+            }];
+        }else {
+            //cancel the drag, resume to before
+            [UIView animateWithDuration:0.5 animations:^{
+                //view's X dragged from ZERO to SCREEN_WIDTH,the view's center finally to SCREEN_WIDTH*1.5
+                _transitionView.center = CGPointMake(SCREEN_WIDTH/2, _transitionView.center.y);
+            } completion:^(BOOL finished) {
+                // remove the new vc's view
+                [[[_transitionView subviews] objectAtIndex:1] removeFromSuperview];
+                // resume the old vc's view's frame and show
+                [[[_transitionView subviews] objectAtIndex:0] setFrame:CGRectMake(0, 0, _transitionView.frame.size.width, _transitionView.frame.size.height)];
+            }];
+        }
+    }
+    
+    if (_direction == ZLPanGestureSwipeDirectionNoneLeft) {
+        if (((CGFloat)abs(_transitionView.frame.origin.x)/SCREEN_WIDTH - 1.0/3.0 ) >= 0.0) {
+            [UIView animateWithDuration:0.5 animations:^{
+                //view's X dragged from ZERO to -SCREEN_WIDTH,the view's center finally to ZERO
+                _transitionView.center = CGPointMake(0, _transitionView.center.y);
+            } completion:^(BOOL finished) {
+                //change the frame to one screen
+                _transitionView.frame = CGRectMake(0, _transitionView.frame.origin.y, SCREEN_WIDTH, _transitionView.frame.size.height);
+                // remove the older vc's view
+                [[[_transitionView subviews] objectAtIndex:0] removeFromSuperview];
+                // change the new vc's view's frame and show
+                [[[_transitionView subviews] objectAtIndex:0] setFrame:CGRectMake(0, 0, _transitionView.frame.size.width, _transitionView.frame.size.height)];
+                // set selected vc
+                [self setSelectedViewController:[_viewControllers objectAtIndex:[self selectedViewControllerIndex]+1]];
+                //change the menu
+                [_menuView changeButtonStateAtIndex:[self selectedViewControllerIndex]];
+            }];
+        } else {
+            //cancel the drag, resume to before
+            [UIView animateWithDuration:0.5 animations:^{
+                _transitionView.center = CGPointMake(SCREEN_WIDTH, _transitionView.center.y);
+            } completion:^(BOOL finished) {
+                //change the frame to one screen
+                _transitionView.frame = CGRectMake(0, _transitionView.frame.origin.y, SCREEN_WIDTH, _transitionView.frame.size.height);
+                // remove the new vc's view
+                [[[_transitionView subviews] objectAtIndex:1] removeFromSuperview];
+                // resume the old vc's view's frame and show
+                [[[_transitionView subviews] objectAtIndex:0] setFrame:CGRectMake(0, 0, _transitionView.frame.size.width, _transitionView.frame.size.height)];
+            }];
+        }
+    }
+    
+    
+    if (_direction == ZLPanGestureSwipeDirectionNone) {
+        [UIView animateWithDuration:0.5 animations:^{
+            _transitionView.center = CGPointMake(SCREEN_WIDTH/2, _transitionView.center.y);
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+}
+
+- (void)draggableViewBeganDragging:(DraggableView *)view gestureDirection:(ZLPanGestureSwipeDirection)direction
+{
+    _direction = direction;
+    switch (direction) {
+        case ZLPanGestureSwipeDirectionNoneLeft:
+            if ([self selectedViewControllerIndex] == [_viewControllers count] -1 ) {
+                _direction = ZLPanGestureSwipeDirectionNone;
+                //the right most one， do nothing here
+                // you can add animation or toast to remind the user that there is no more vc on the right
+            } else {
+                UIView *rightView = [[_viewControllers objectAtIndex:([self selectedViewControllerIndex] +1)] view];
+                [rightView setFrame:[[self transitionView] bounds]];
+                [rightView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+                rightView.center = CGPointMake(SCREEN_WIDTH + SCREEN_WIDTH/2, rightView.center.y);
+                [[self transitionView] addSubview:rightView];
+                //now transitionView has two view, one is the current vc's view, the other is above right view
+                // right view will be dragged from right to replace the position of current view
+                [[self transitionView] setFrame:CGRectMake(_transitionView.frame.origin.x, _transitionView.frame.origin.y, SCREEN_WIDTH*2, _transitionView.frame.size.height)];
+            }
+            break;
+            
+        case ZLPanGestureSwipeDirectionNoneRight:
+            if ([self selectedViewControllerIndex] == 0) {
+                _direction = ZLPanGestureSwipeDirectionNone;
+                if (self.navigationController) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            } else {
+                _transitionView.clipsToBounds = NO;
+                UIView *leftView = [[_viewControllers objectAtIndex:([self selectedViewControllerIndex] -1)] view];
+                [leftView setFrame:[[self transitionView] bounds]];
+                [leftView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+                [[self transitionView] addSubview:leftView];
+                leftView.center = CGPointMake(-SCREEN_WIDTH/2, leftView.center.y);
+            }
+            break;
+            
+        default:
+            //do nothing here
+            break;
+    }
+    
+}
 
 @end
 
