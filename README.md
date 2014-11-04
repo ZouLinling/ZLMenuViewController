@@ -13,7 +13,7 @@ It is much easy to use ZLMenuViewController， only three steps：
 
 1. Init ZLMenuViewController
 ```objc
-//ZLMenuViewController *vc = [[ZLMenuViewController alloc] init];
+ZLMenuViewController *vc = [[ZLMenuViewController alloc] init];
 ```
 2. Init the ViewControllers which need to add to ZLMenuViewController
 ```objc
