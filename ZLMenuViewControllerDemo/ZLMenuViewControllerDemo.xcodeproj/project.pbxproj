@@ -14,6 +14,21 @@
 		8825B1FB1A03205E00B6FC6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8825B1FA1A03205E00B6FC6A /* Images.xcassets */; };
 		8825B1FE1A03205F00B6FC6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8825B1FC1A03205E00B6FC6A /* LaunchScreen.xib */; };
 		8825B20A1A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8825B2091A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m */; };
+		88A6792C1A08591700A877F5 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679231A08591700A877F5 /* DraggableView.m */; };
+		88A6792D1A08591700A877F5 /* helight.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679241A08591700A877F5 /* helight.png */; };
+		88A6792E1A08591700A877F5 /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679251A08591700A877F5 /* normal.png */; };
+		88A6792F1A08591700A877F5 /* ZLHorizontalMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679271A08591700A877F5 /* ZLHorizontalMenuView.m */; };
+		88A679301A08591700A877F5 /* ZLMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679291A08591700A877F5 /* ZLMenu.m */; };
+		88A679311A08591700A877F5 /* ZLMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A6792B1A08591700A877F5 /* ZLMenuViewController.m */; };
+		88A679351A08594800A877F5 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679331A08594800A877F5 /* NewsTableViewCell.m */; };
+		88A679361A08594800A877F5 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A679341A08594800A877F5 /* NewsTableViewCell.xib */; };
+		88A679421A08596800A877F5 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A6793C1A08596800A877F5 /* NewsViewController.m */; };
+		88A679431A08596800A877F5 /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88A6793D1A08596800A877F5 /* NewsViewController.xib */; };
+		88A679491A085AAB00A877F5 /* SGFocusImageFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679461A085AAB00A877F5 /* SGFocusImageFrame.m */; };
+		88A6794A1A085AAB00A877F5 /* SGFocusImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679481A085AAB00A877F5 /* SGFocusImageItem.m */; };
+		88A679541A0868ED00A877F5 /* image1.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679511A0868ED00A877F5 /* image1.png */; };
+		88A679551A0868ED00A877F5 /* image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679521A0868ED00A877F5 /* image2.png */; };
+		88A679561A0868ED00A877F5 /* image3.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679531A0868ED00A877F5 /* image3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +55,29 @@
 		8825B2031A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZLMenuViewControllerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8825B2081A03205F00B6FC6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8825B2091A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMenuViewControllerDemoTests.m; sourceTree = "<group>"; };
+		88A679221A08591700A877F5 /* DraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
+		88A679231A08591700A877F5 /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
+		88A679241A08591700A877F5 /* helight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helight.png; sourceTree = "<group>"; };
+		88A679251A08591700A877F5 /* normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.png; sourceTree = "<group>"; };
+		88A679261A08591700A877F5 /* ZLHorizontalMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHorizontalMenuView.h; sourceTree = "<group>"; };
+		88A679271A08591700A877F5 /* ZLHorizontalMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHorizontalMenuView.m; sourceTree = "<group>"; };
+		88A679281A08591700A877F5 /* ZLMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLMenu.h; sourceTree = "<group>"; };
+		88A679291A08591700A877F5 /* ZLMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLMenu.m; sourceTree = "<group>"; };
+		88A6792A1A08591700A877F5 /* ZLMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLMenuViewController.h; sourceTree = "<group>"; };
+		88A6792B1A08591700A877F5 /* ZLMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLMenuViewController.m; sourceTree = "<group>"; };
+		88A679321A08594800A877F5 /* NewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
+		88A679331A08594800A877F5 /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
+		88A679341A08594800A877F5 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
+		88A6793B1A08596800A877F5 /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		88A6793C1A08596800A877F5 /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
+		88A6793D1A08596800A877F5 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
+		88A679451A085AAB00A877F5 /* SGFocusImageFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFocusImageFrame.h; sourceTree = "<group>"; };
+		88A679461A085AAB00A877F5 /* SGFocusImageFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFocusImageFrame.m; sourceTree = "<group>"; };
+		88A679471A085AAB00A877F5 /* SGFocusImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFocusImageItem.h; sourceTree = "<group>"; };
+		88A679481A085AAB00A877F5 /* SGFocusImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFocusImageItem.m; sourceTree = "<group>"; };
+		88A679511A0868ED00A877F5 /* image1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image1.png; sourceTree = "<group>"; };
+		88A679521A0868ED00A877F5 /* image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2.png; sourceTree = "<group>"; };
+		88A679531A0868ED00A877F5 /* image3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +101,8 @@
 		8825B1E11A03205E00B6FC6A = {
 			isa = PBXGroup;
 			children = (
+				88A679211A08591700A877F5 /* ZLMenuViewController */,
+				88A679441A085AAB00A877F5 /* AutoScrollImage */,
 				8825B1EC1A03205E00B6FC6A /* ZLMenuViewControllerDemo */,
 				8825B2061A03205F00B6FC6A /* ZLMenuViewControllerDemoTests */,
 				8825B1EB1A03205E00B6FC6A /* Products */,
@@ -81,6 +121,15 @@
 		8825B1EC1A03205E00B6FC6A /* ZLMenuViewControllerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				88A679511A0868ED00A877F5 /* image1.png */,
+				88A679521A0868ED00A877F5 /* image2.png */,
+				88A679531A0868ED00A877F5 /* image3.png */,
+				88A6793B1A08596800A877F5 /* NewsViewController.h */,
+				88A6793C1A08596800A877F5 /* NewsViewController.m */,
+				88A6793D1A08596800A877F5 /* NewsViewController.xib */,
+				88A679321A08594800A877F5 /* NewsTableViewCell.h */,
+				88A679331A08594800A877F5 /* NewsTableViewCell.m */,
+				88A679341A08594800A877F5 /* NewsTableViewCell.xib */,
 				8825B1F11A03205E00B6FC6A /* AppDelegate.h */,
 				8825B1F21A03205E00B6FC6A /* AppDelegate.m */,
 				8825B1F41A03205E00B6FC6A /* ViewController.h */,
@@ -117,6 +166,36 @@
 				8825B2081A03205F00B6FC6A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		88A679211A08591700A877F5 /* ZLMenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88A679221A08591700A877F5 /* DraggableView.h */,
+				88A679231A08591700A877F5 /* DraggableView.m */,
+				88A679241A08591700A877F5 /* helight.png */,
+				88A679251A08591700A877F5 /* normal.png */,
+				88A679261A08591700A877F5 /* ZLHorizontalMenuView.h */,
+				88A679271A08591700A877F5 /* ZLHorizontalMenuView.m */,
+				88A679281A08591700A877F5 /* ZLMenu.h */,
+				88A679291A08591700A877F5 /* ZLMenu.m */,
+				88A6792A1A08591700A877F5 /* ZLMenuViewController.h */,
+				88A6792B1A08591700A877F5 /* ZLMenuViewController.m */,
+			);
+			name = ZLMenuViewController;
+			path = ../ZLMenuViewController;
+			sourceTree = "<group>";
+		};
+		88A679441A085AAB00A877F5 /* AutoScrollImage */ = {
+			isa = PBXGroup;
+			children = (
+				88A679451A085AAB00A877F5 /* SGFocusImageFrame.h */,
+				88A679461A085AAB00A877F5 /* SGFocusImageFrame.m */,
+				88A679471A085AAB00A877F5 /* SGFocusImageItem.h */,
+				88A679481A085AAB00A877F5 /* SGFocusImageItem.m */,
+			);
+			name = AutoScrollImage;
+			path = ZLMenuViewControllerDemo/AutoScrollImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,8 +279,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8825B1F91A03205E00B6FC6A /* Main.storyboard in Resources */,
+				88A679551A0868ED00A877F5 /* image2.png in Resources */,
+				88A679431A08596800A877F5 /* NewsViewController.xib in Resources */,
+				88A6792E1A08591700A877F5 /* normal.png in Resources */,
+				88A679541A0868ED00A877F5 /* image1.png in Resources */,
 				8825B1FE1A03205F00B6FC6A /* LaunchScreen.xib in Resources */,
 				8825B1FB1A03205E00B6FC6A /* Images.xcassets in Resources */,
+				88A679561A0868ED00A877F5 /* image3.png in Resources */,
+				88A679361A08594800A877F5 /* NewsTableViewCell.xib in Resources */,
+				88A6792D1A08591700A877F5 /* helight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +306,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8825B1F61A03205E00B6FC6A /* ViewController.m in Sources */,
+				88A6792F1A08591700A877F5 /* ZLHorizontalMenuView.m in Sources */,
 				8825B1F31A03205E00B6FC6A /* AppDelegate.m in Sources */,
+				88A679311A08591700A877F5 /* ZLMenuViewController.m in Sources */,
+				88A679491A085AAB00A877F5 /* SGFocusImageFrame.m in Sources */,
+				88A6794A1A085AAB00A877F5 /* SGFocusImageItem.m in Sources */,
+				88A6792C1A08591700A877F5 /* DraggableView.m in Sources */,
+				88A679301A08591700A877F5 /* ZLMenu.m in Sources */,
+				88A679421A08596800A877F5 /* NewsViewController.m in Sources */,
+				88A679351A08594800A877F5 /* NewsTableViewCell.m in Sources */,
 				8825B1F01A03205E00B6FC6A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +506,7 @@
 				8825B20F1A03205F00B6FC6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8825B2101A03205F00B6FC6A /* Build configuration list for PBXNativeTarget "ZLMenuViewControllerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +515,7 @@
 				8825B2121A03205F00B6FC6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

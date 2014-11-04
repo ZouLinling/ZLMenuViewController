@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "NewsViewController.h"
+#import "ZLMenuViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    ZLMenuViewController *vc = [[ZLMenuViewController alloc] init];
+    
+    NewsViewController *news1 = [[NewsViewController alloc] initWithNewsType:NewsTypeRoot];
+    NewsViewController *news2 = [[NewsViewController alloc] initWithNewsType:NewsTypeSports];
+    NewsViewController *news3 = [[NewsViewController alloc] initWithNewsType:NewsTypeScience];
+    NewsViewController *news4 = [[NewsViewController alloc] initWithNewsType:NewsTypeMovie];
+    NewsViewController *news5 = [[NewsViewController alloc] initWithNewsType:NewsTypeGame];
+    NewsViewController *news6 = [[NewsViewController alloc] initWithNewsType:NewsTypeGame];
+    news6.menuItem = [[ZLMenu alloc] initWithTitle:@"本地" background:nil selected:nil desiredWidth:DEFAULT_MENU_WIDTH];
+    NewsViewController *news7 = [[NewsViewController alloc] initWithNewsType:NewsTypeGame];
+    news7.menuItem = [[ZLMenu alloc] initWithTitle:@"国际" background:nil selected:nil desiredWidth:DEFAULT_MENU_WIDTH];
+    
+    [vc setViewControllers:@[news1,news2,news3,news4,news5,news6,news7]];
+    
+    self.window.rootViewController = vc;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
