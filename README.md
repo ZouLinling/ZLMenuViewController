@@ -7,7 +7,7 @@ Thanks Joe Conway, ZLMenuViewController is based on his MenuViewController. Here
 
 Thanks 厚脸皮@code4app, ZLHorizontalMenuView is based on his MenuHorizontal. Here is the demo project he wrote: http://code4app.com/ios/53a267b6933bf051468b54b8 
 
-How to use ZLMenuViewController？
+# How to use ZLMenuViewController？
 
 It is much easy to use ZLMenuViewController， only three steps：
 
