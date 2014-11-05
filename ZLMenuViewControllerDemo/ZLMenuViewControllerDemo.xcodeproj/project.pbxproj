@@ -14,6 +14,7 @@
 		8825B1FB1A03205E00B6FC6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8825B1FA1A03205E00B6FC6A /* Images.xcassets */; };
 		8825B1FE1A03205F00B6FC6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8825B1FC1A03205E00B6FC6A /* LaunchScreen.xib */; };
 		8825B20A1A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8825B2091A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m */; };
+		8864E6061A09CEC3006056A1 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8864E6051A09CEC3006056A1 /* Reveal.framework */; };
 		88A6792C1A08591700A877F5 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A679231A08591700A877F5 /* DraggableView.m */; };
 		88A6792D1A08591700A877F5 /* helight.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679241A08591700A877F5 /* helight.png */; };
 		88A6792E1A08591700A877F5 /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A679251A08591700A877F5 /* normal.png */; };
@@ -55,6 +56,7 @@
 		8825B2031A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZLMenuViewControllerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8825B2081A03205F00B6FC6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8825B2091A03205F00B6FC6A /* ZLMenuViewControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMenuViewControllerDemoTests.m; sourceTree = "<group>"; };
+		8864E6051A09CEC3006056A1 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		88A679221A08591700A877F5 /* DraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
 		88A679231A08591700A877F5 /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
 		88A679241A08591700A877F5 /* helight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helight.png; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8864E6061A09CEC3006056A1 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +104,7 @@
 		8825B1E11A03205E00B6FC6A = {
 			isa = PBXGroup;
 			children = (
+				8864E6051A09CEC3006056A1 /* Reveal.framework */,
 				88A679211A08591700A877F5 /* ZLMenuViewController */,
 				88A679441A085AAB00A877F5 /* AutoScrollImage */,
 				8825B1EC1A03205E00B6FC6A /* ZLMenuViewControllerDemo */,
@@ -437,8 +441,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/zou/Downloads/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ZLMenuViewControllerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -447,6 +462,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/zou/Downloads/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ZLMenuViewControllerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

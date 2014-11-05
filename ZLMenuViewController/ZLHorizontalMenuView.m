@@ -37,10 +37,7 @@
 }
 
 -(void)createMenuViews{
-    if (_menus == nil) {
-        _menus = [[_delegate itemsForMenuView:self] mutableCopy];
-        
-    }
+    _menus = [[_delegate itemsForMenuView:self] mutableCopy];
     int visibleMenuCount = SCREEN_WIDTH/DEFAULT_MENU_WIDTH;
     int i = 0;
     float menuWidth = 0.0;

@@ -1,9 +1,11 @@
 //
 //  SGFocusImageFrame.m
-//  ScrollViewLoop
+//  BaseProject
 //
+//  Created by Shane Gao on 17/6/12.
 //  Created by Vincent Tang on 13-7-18.
-//  Copyright (c) 2013年 Vincent Tang. All rights reserved.
+//  Improved by ZouLinling on 10/28/14.
+//  Copyright (c) 2014 Zou. All rights reserved.
 //
 
 #import "SGFocusImageFrame.h"

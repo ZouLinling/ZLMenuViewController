@@ -150,6 +150,11 @@
     
     if([self isViewLoaded]) {
         [previous.view removeFromSuperview];
+        if (USE_THREE_VIEWS && ! USE_SWIPE_ANIMATION) {
+            for (UIView *view in _transitionView.subviews) {
+                [view removeFromSuperview];
+            }
+        }
         UIView *newView = [[self selectedViewController] view];
         [newView setFrame:[[self transitionView] bounds]];
         [newView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
@@ -325,9 +330,9 @@
                 } completion:^(BOOL finished) {
                     //change the frame to one screen
                     _transitionView.frame = CGRectMake(0, _transitionView.frame.origin.y, SCREEN_WIDTH, _transitionView.frame.size.height);
-                    for (UIView *view in _transitionView.subviews) {
-                        [view removeFromSuperview];
-                    }
+//                    for (UIView *view in _transitionView.subviews) {
+//                        [view removeFromSuperview];
+//                    }
                     // set selected vc
                     [self setSelectedViewController:[_viewControllers objectAtIndex:[self selectedViewControllerIndex]-1]];
                     //change the menu
@@ -350,9 +355,9 @@
                 } completion:^(BOOL finished) {
                     //change the frame to one screen
                     _transitionView.frame = CGRectMake(0, _transitionView.frame.origin.y, SCREEN_WIDTH, _transitionView.frame.size.height);
-                    for (UIView *view in _transitionView.subviews) {
-                        [view removeFromSuperview];
-                    }
+//                    for (UIView *view in _transitionView.subviews) {
+//                        [view removeFromSuperview];
+//                    }
                     // set selected vc
                     [self setSelectedViewController:[_viewControllers objectAtIndex:[self selectedViewControllerIndex]+1]];
                     //change the menu
